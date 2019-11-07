@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/angular8template/v16/Server/sqlite3/db.lock
+/.vs/Angular8Template/v16/Server/sqlite3
+/Angular8Template/bin/Debug/netcoreapp2.2
+/Angular8Template.Database/bin/Debug/netcoreapp2.2
+/Angular8Template.Database/obj
+/Angular8Template.Models/bin/Debug/netcoreapp2.2
+/Angular8Template.Models/obj

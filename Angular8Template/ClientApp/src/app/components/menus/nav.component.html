@@ -1,0 +1,75 @@
+<nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">
+    <img src="../../assets/img/logo/logo.jpg" />
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="'/'">
+          <i class="fa fa-home"></i>
+          Home
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li *ngIf="isLoggedIn() && isManager()" class="nav-item">
+        <a class="nav-link" [routerLink]="'/users'">
+          <i class="fa fa-users">
+            <span *ngIf="userCount > 0" class="badge badge-danger">{{userCount}}</span>
+          </i>
+          Users
+        </a>
+      </li>
+      <li *ngIf="isLoggedIn() && !isManager()" class="nav-item">
+        <a class="nav-link" [routerLink]="'/wish-list'">
+          <i class="fa fa-list-alt">
+            <span class="badge badge-warning">9</span>
+          </i>
+          Wish List
+        </a>
+      </li>
+      <li *ngIf="isLoggedIn() && !isManager()" class="nav-item">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-line-chart"></i>
+          Statistic
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" [routerLink]="'/statistic/asx'">ASXs</a>
+          <a class="dropdown-item" [routerLink]="'/statistic/precious-metals'">Precious Metals</a>
+          <a class="dropdown-item" [routerLink]="'/statistic/cryptos'">Cryptos</a>
+        </div>
+      </li>
+    </ul>
+    <ul class="navbar-nav nav-right">
+      <li *ngIf="!isLoggedIn()" class="nav-item">
+        <a class="nav-link" href="#" (click)="registerClick()">
+          <i class="fa fa-registered"></i>
+          Register
+        </a>
+      </li>
+      <li *ngIf="!isLoggedIn()" class="nav-item">
+        <a class="nav-link" href="#" (click)="signinClick()">
+          <i class="fa fa-sign-in"></i>
+          Sign In
+        </a>
+      </li>
+      <li *ngIf="isLoggedIn() && !isManager()" class="nav-item">
+        <a class="nav-link" [routerLink]="'/profile'">
+          <i class="fa fa-user-o"></i>
+          My Profile
+        </a>
+      </li>
+      <li *ngIf="isLoggedIn()" class="nav-item" (click)="signoutClick()">
+        <a class="nav-link" href="#">
+          <i class="fa fa-sign-out"></i>
+          Sign Out
+        </a>
+      </li>
+    </ul>
+  </div>
+  <signin-modal></signin-modal>
+  <register-modal></register-modal>
+  <info-modal></info-modal>
+</nav>

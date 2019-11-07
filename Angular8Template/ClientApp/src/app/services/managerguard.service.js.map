@@ -1,0 +1,1 @@
+{"version":3,"file":"managerguard.service.js","sourceRoot":"","sources":["managerguard.service.ts"],"names":[],"mappings":";;AAEA;IACI,6BAAoB,OAAoB;QAApB,YAAO,GAAP,OAAO,CAAa;IAExC,CAAC;IAED,yCAAW,GAAX,UAAY,KAA6B,EAAE,KAA0B;QACjE,OAAO,IAAI,CAAC,OAAO,CAAC,UAAU,EAAE,IAAI,IAAI,CAAC,OAAO,CAAC,SAAS,EAAE,CAAC;IACjE,CAAC;IACL,0BAAC;AAAD,CAAC,AARD,IAQC;AARY,kDAAmB"}

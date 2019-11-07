@@ -1,0 +1,64 @@
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <form [formGroup]="profileForm">
+      <div class="modal-header">
+        <h4 class="modal-title" style="position:relative;left:40%;" id="modal-basic-title">My Profile</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="email"><b>Firstname</b></label>
+          <div class="input-group">
+            <input type="text" formControlName="firstname" class="form-control" placeholder="john" [ngClass]="{ 'is-invalid': (f.firstname.errors != null) && f.firstname.touched}">
+          </div>
+          <div *ngIf="(f.firstname.errors != null) && f.firstname.touched" class="invalid-feedback d-block">
+            <span>Firstname is required</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email"><b>Lastname</b></label>
+          <div class="input-group">
+            <input type="text" formControlName="lastname" class="form-control" placeholder="doe" [ngClass]="{ 'is-invalid': (f.lastname.errors != null) && f.lastname.touched}">
+          </div>
+          <div *ngIf="(f.lastname.errors != null) && f.lastname.touched" class="invalid-feedback d-block">
+            <span>Lastname is required</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="position"><b>Position</b></label>
+          <div class="input-group">
+            <select formControlName="position" (change)="changePosition($event)">
+              <option value="">Select Position</option>
+              <option *ngFor="let item of positions">{{item}}</option>
+            </select>
+          </div>
+          <div *ngIf="f.position.errors?.required && f.position.touched" class="invalid-feedback d-block">
+            <span>Position is required</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email"><b>Age</b></label>
+          <div class="input-group">
+            <input type="text" formControlName="age" class="form-control" placeholder="18" [ngClass]="{ 'is-invalid': (f.age.errors != null && (f.age.errors.required || f.age.errors.isNotNumeric || f.age.errors.isUnderAge)) && f.age.touched}">
+          </div>
+          <div *ngIf="(f.age.errors != null && f.age.errors.required) && f.age.touched" class="invalid-feedback d-block">
+            <span>Age is required</span>
+          </div>
+          <div *ngIf="(f.age.errors != null && f.age.errors.isNotNumeric) && f.age.touched" class="invalid-feedback d-block">
+            <span>Age must be a numeric</span>
+          </div>
+          <div *ngIf="(f.age.errors != null && f.age.errors.isUnderAge) && f.age.touched" class="invalid-feedback d-block">
+            <span>Age must be 18 or above</span>
+          </div>
+        </div>
+        <div *ngIf="message!=null" class="form-group">
+          <div class="invalid-feedback text-center d-block">
+            <span>{{message}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-dark" [disabled]="profileForm.invalid" (click)="onSubmit()">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>

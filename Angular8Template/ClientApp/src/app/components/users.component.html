@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-md-12 text-center">
+    <h2>Users List</h2>
+  </div>
+  <div class="col-md-12">
+    <table class="table">
+      <thead>
+        <tr>
+          <th colspan="4" class="text-center">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </th>
+        </tr>
+        <tr>
+          <th scope="col">Email</th>
+          <th scope="col">Fullname</th>
+          <th scope="col">Age</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of users | paginate: { itemsPerPage: 10, currentPage: p }">
+          <td scope="row">{{item.email}}</td>
+          <td>{{''|fullnamePipe:item}}</td>
+          <td>{{item.age}}</td>
+          <td>
+            <button type="button" class="btn btn-dark" (click)="onEdit(item.id)">Edit</button>
+            &nbsp;
+            <button type="button" class="btn btn-dark" (click)="onDelete(item.lastname==null?'':(item.lastname + ', ') +item.firstname,item.id)">Delete</button>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4" class="text-center">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <confirm-modal></confirm-modal>
+</div>
