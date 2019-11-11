@@ -18,7 +18,7 @@ using Angular8Template.Database;
 
 namespace Angular8Template.Web.Controllers.Api
 {
-    [Route("api/chart")]
+    [Route("api/gallery")]
     [ApiController]
     public class GalleryController : ControllerBase
     {

@@ -36,7 +36,7 @@ namespace Angular8Template.Web.Controllers.Api
             signInManager = (SignInManager<ApplicationUser>)this.provider.GetService(typeof(SignInManager<ApplicationUser>));
         }
 
-        [Authorize(Roles = "Manager,User",AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Roles = "User",AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("asx/data")]
         public async Task<ActionResult> GetASXData()
         {

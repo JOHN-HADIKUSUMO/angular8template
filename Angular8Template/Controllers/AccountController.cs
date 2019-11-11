@@ -44,6 +44,31 @@ namespace Angular8Template.Web.Controllers.Api
         }
 
         [Authorize(Roles = "User", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpPut("profile")]
+        public async Task<ActionResult> UpdateProfile(UpdateProfile model)
+        {
+            return new ContentResult() { StatusCode = 200, ContentType = "application/json", Content = string.Empty };
+            //Claim emailClaim = User.Claims.Where(w => w.Type.Contains("email")).FirstOrDefault();
+            //if (emailClaim != null)
+            //{
+            //    string email = emailClaim.Value;
+            //    ApplicationUser user = await this.userManager.FindByNameAsync(email);
+            //    if (user != null)
+            //    {
+
+            //        UpdateProfile update = new UpdateProfile();
+            //        update.Email = email;
+            //        update.Firstname = user.Firstname;
+            //        update.Lastname = user.Lastname;
+            //        update.Age = user.Age;
+            //        update.Position = await this.userManager.IsInRoleAsync(user, "Manager") ? "Manager" : "User";
+            //        return Ok(update);
+            //    }
+            //}
+            //return new ContentResult() { StatusCode = 500, ContentType = "application/json", Content = "Fail to find the profile" };
+        }
+
+        [Authorize(Roles = "User", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("profile")]
         public async Task<ActionResult> GetProfile()
         {
@@ -52,7 +77,17 @@ namespace Angular8Template.Web.Controllers.Api
             {
                 string email = emailClaim.Value;
                 ApplicationUser user = await this.userManager.FindByNameAsync(email);
-                return Ok(user);
+                if(user != null)
+                {
+                    
+                    UpdateProfile update = new UpdateProfile();
+                    update.Email = email;
+                    update.Firstname = user.Firstname;
+                    update.Lastname = user.Lastname;
+                    update.Age = user.Age;
+                    update.Position = await this.userManager.IsInRoleAsync(user, "Manager") ? "Manager" : "User";
+                    return Ok(update);
+                }
             }
             return new ContentResult() { StatusCode = 500, ContentType = "application/json", Content = "Fail to find the profile" };
         }

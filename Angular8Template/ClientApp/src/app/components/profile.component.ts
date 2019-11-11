@@ -33,24 +33,33 @@ export class ProfileComponent implements OnInit {
     }
 
     onSubmit(): void {
-        alert('hello');
+        var obj = {
+            email: '',
+            firstname: '',
+            lastname: '',
+            position: '',
+            age: 0
+        };
+
+        this.service.updateProfile(obj).subscribe((res) => {
+
+        });
     }
 
     ngOnInit(): void {
-        this.service.getProfile().subscribe((res) => {
         this.profileForm = this.formBuilder.group({
-            firstname: [res.firstname, Validators.required],
-            lastname: [res.lastname, Validators.required],
+            firstname: ['', Validators.required],
+            lastname: ['', Validators.required],
             position: ['', [Validators.required]],
-            age: [res.age, [Validators.required, ageValidator]]
-        });
+            age: [18, [Validators.required, ageValidator]]
         });
 
-        //this.profileForm = this.formBuilder.group({
-        //    firstname: ['', Validators.required],
-        //    lastname: ['', Validators.required],
-        //    position: ['', [Validators.required]],
-        //    age: ['', [Validators.required, ageValidator]]
-        //});
+        this.service.getProfile().subscribe((res) => {
+            console.log(JSON.stringify(res));
+            this.profileForm.controls['firstname'].setValue(res.firstname);
+            this.profileForm.controls['lastname'].setValue(res.lastname);
+            this.profileForm.controls['position'].setValue(res.position);
+            this.profileForm.controls['age'].setValue(res.age);
+        });
     }
 }

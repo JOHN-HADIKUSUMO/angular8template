@@ -93,6 +93,12 @@ export class UserService {
         return this.http.post<boolean>(url, registration);
     };
 
+    updateProfile(profile:any): Observable<any> {
+        this.userLogin = this.getLogin();
+        var url = this.baseUrl + '/api/account/profile';
+        return this.http.put<any>(url, profile, { headers: new HttpHeaders({ 'Authorization': `Bearer ${this.userLogin.token}` }) });
+    }
+
     getProfile(): Observable<any> {
         this.userLogin = this.getLogin();
         var url = this.baseUrl + '/api/account/profile';
