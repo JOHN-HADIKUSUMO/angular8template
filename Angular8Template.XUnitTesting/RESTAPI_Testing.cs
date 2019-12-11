@@ -4,18 +4,16 @@ using System.Net;
 using System.Text;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Angular8Template.Models;
-     
-
+using Angular8Template.Models;   
 using Xunit;
 using Newtonsoft.Json;
 
 namespace Angular8Template.XUnitTesting
 {
-    public class UnitTest1
+    public class RESTAPI_Testing
     {
         private readonly HttpClient _client;
-        public UnitTest1()
+        public RESTAPI_Testing()
         {
             var appFactory = new WebApplicationFactory<Startup>();
             _client = appFactory.CreateClient();
@@ -29,10 +27,11 @@ namespace Angular8Template.XUnitTesting
             login.Email = "john.hadikusumo@gmail.com";
             login.Password = "Gunawan70**";
 
-            var myContent = JsonConvert.SerializeObject(login);
-            var stringContent = new StringContent(myContent, UnicodeEncoding.UTF8, "application/json");
-            var result = await _client.PostAsync("/api/account/login", stringContent);
-            string output = await result.Content.ReadAsStringAsync();
+            var serializedLogin = JsonConvert.SerializeObject(login);
+            var jsonContent = new StringContent(serializedLogin, UnicodeEncoding.UTF8, "application/json");
+            var result = await _client.PostAsync("/api/account/login", jsonContent);
+            string stringFeedback = await result.Content.ReadAsStringAsync();
+            LoginSuccess deserializedFeedback = JsonConvert.DeserializeObject<LoginSuccess>(stringFeedback);
             Assert.True(result.StatusCode == HttpStatusCode.OK);
         }
     }

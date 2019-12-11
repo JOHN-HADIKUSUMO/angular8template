@@ -198,7 +198,7 @@ namespace Angular8Template.Web.Controllers.Api
                     signingCredentials: signinCredentials
                 );
                 string jwt = new JwtSecurityTokenHandler().WriteToken(token);
-                return Ok(new {Fullname = user.Result.Firstname + (string.IsNullOrEmpty(user.Result.Lastname)?"":(" " + user.Result.Lastname)), Token = jwt, Position = (await this.userManager.IsInRoleAsync(user.Result,"Manager")?"Manager":"User") });
+                return Ok(new LoginSuccess { Fullname = user.Result.Firstname + (string.IsNullOrEmpty(user.Result.Lastname) ? "" : (" " + user.Result.Lastname)), Token = jwt, Position = (await this.userManager.IsInRoleAsync(user.Result, "Manager") ? "Manager" : "User") });
             }
             else
             {
