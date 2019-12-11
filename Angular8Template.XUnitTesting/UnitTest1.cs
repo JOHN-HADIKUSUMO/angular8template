@@ -27,7 +27,7 @@ namespace Angular8Template.XUnitTesting
         {
             Login login = new Login();
             login.Email = "john.hadikusumo@gmail.com";
-            login.Password = "Gunawan70**";
+            login.Password = "Password123**";
 
             var myContent = JsonConvert.SerializeObject(login);
             var stringContent = new StringContent(myContent, UnicodeEncoding.UTF8, "application/json");
