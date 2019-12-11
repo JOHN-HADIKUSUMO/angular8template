@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -17,9 +18,9 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.AspNetCore.JsonPatch.Operations;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Angular8Template.Models;
 using Angular8Template.Database;
+using Microsoft.Extensions.Hosting;
 
 namespace Angular8Template
 {
@@ -29,11 +30,11 @@ namespace Angular8Template
         private string securityKey;
         private string validIssuer;
         private string validAudience;
-        private IHostingEnvironment environment { get; }
+        private IWebHostEnvironment environment { get; }
         public IConfiguration configuration { get; }
 
 
-        public Startup(IConfiguration configuration, IHostingEnvironment environment)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             this.environment = environment;
             this.configuration = configuration;
@@ -60,13 +61,13 @@ namespace Angular8Template
                         IssuerSigningKey = symmetricSecurityKey
                     };
                 });
+            services.AddControllers(options => options.EnableEndpointRouting = false);
             services.AddDbContext<ApplicationUserContext>(options => options.UseSqlServer(connectionString));
             services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationUserContext>()
             .AddDefaultTokenProviders();
 
             services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.Configure<IdentityOptions>(options =>
             {
                 // User settings
@@ -79,7 +80,7 @@ namespace Angular8Template
             });
 
             services.AddCors();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             if (this.environment.IsDevelopment() && !string.IsNullOrWhiteSpace(this.configuration["HttpsRedirectionPort"]))
             {
                 services.AddHttpsRedirection(options =>
@@ -87,13 +88,14 @@ namespace Angular8Template
                     options.HttpsPort = int.Parse(this.configuration["HttpsRedirectionPort"]);
                 });
             }
+            services.AddControllersWithViews();
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
             });
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -109,22 +111,22 @@ namespace Angular8Template
             .AllowAnyOrigin()
             .AllowAnyHeader()
             .AllowAnyMethod());
+            app.UseAuthorization();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-            app.UseMvc(routes =>
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                name: "default",
-                template: "{controller}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}");
             });
+
             app.UseSpa(spa =>
             {
-                spa.Options.SourcePath = "ClientApp";
+                spa.Options.SourcePath = "ClientApp";    
                 if (env.IsDevelopment())
                 {
                     spa.UseAngularCliServer(npmScript: "start");
-                    spa.Options.StartupTimeout = TimeSpan.FromSeconds(120); // Increase the timeout if angular app is taking longer to startup
                 }
             });
         }

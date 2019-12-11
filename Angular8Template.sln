@@ -5,9 +5,16 @@ VisualStudioVersion = 16.0.29306.81
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Angular8Template", "Angular8Template\Angular8Template.csproj", "{B3B9A731-B4F2-44CA-B216-7E140089BA2B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Angular8Template.Models", "Angular8Template.Models\Angular8Template.Models.csproj", "{8E4EEB46-E75C-4484-B5AA-01EEB5229CDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Angular8Template.Models", "Angular8Template.Models\Angular8Template.Models.csproj", "{8E4EEB46-E75C-4484-B5AA-01EEB5229CDE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Angular8Template.Database", "Angular8Template.Database\Angular8Template.Database.csproj", "{448560CF-AA70-42D3-A41D-BA99B72493A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Angular8Template.Database", "Angular8Template.Database\Angular8Template.Database.csproj", "{448560CF-AA70-42D3-A41D-BA99B72493A3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "References", "References", "{ED034781-3294-4348-8537-35A350822E97}"
+	ProjectSection(SolutionItems) = preProject
+		source.txt = source.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Angular8Template.XUnitTesting", "Angular8Template.XUnitTesting\Angular8Template.XUnitTesting.csproj", "{E5018EDB-1D49-4E81-87F3-21371DE96C37}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +34,10 @@ Global
 		{448560CF-AA70-42D3-A41D-BA99B72493A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{448560CF-AA70-42D3-A41D-BA99B72493A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{448560CF-AA70-42D3-A41D-BA99B72493A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5018EDB-1D49-4E81-87F3-21371DE96C37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5018EDB-1D49-4E81-87F3-21371DE96C37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5018EDB-1D49-4E81-87F3-21371DE96C37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5018EDB-1D49-4E81-87F3-21371DE96C37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
